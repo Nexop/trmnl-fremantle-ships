@@ -1,0 +1,48 @@
+name: Fremantle biggest ship
+
+on:
+  schedule:
+    # Every 15 minutes, off the top of the hour (GitHub's busiest moment).
+    - cron: "4,19,34,49 * * * *"
+  workflow_dispatch: {}          # adds a "Run workflow" button for manual runs
+
+permissions:
+  contents: write                # lets the job commit the ship-size cache
+
+concurrency:
+  group: fremantle-ships         # never run two at once (they'd fight over the cache)
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Find the biggest ship and send it to TRMNL
+        env:
+          AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+          TRMNL_WEBHOOK_URL: ${{ secrets.TRMNL_WEBHOOK_URL }}
+        run: python fremantle_port.py 7
+
+      - name: Save new ship sizes
+        if: always()
+        run: |
+          if [ -z "$(git status --porcelain -- vessel_cache.json)" ]; then
+            echo "No new ship sizes this run."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vessel_cache.json
+          git commit -m "Update ship size cache"
+          git pull --rebase --autostash || true
+          git push

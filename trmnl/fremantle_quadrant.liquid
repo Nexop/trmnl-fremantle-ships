@@ -1,0 +1,138 @@
+<!-- Fremantle: biggest ship in port — TRMNL quadrant markup.
+     Data: latest.json from fremantle_port.py (merge variables: biggest, others, ships_in_port, unsized, updated).
+     Sizes use cq units, so the same markup scales to any slot or device. -->
+<style>
+  .fsq { container-type: size; width: 100%; height: 100%; box-sizing: border-box;
+         padding: 2.6cqh 3.2cqw; display: flex; flex-direction: column; color: #000;
+         font-family: inherit; }
+  .fsq * { box-sizing: border-box; }
+  .fsq-top { display: flex; justify-content: space-between; align-items: baseline;
+             font-size: 2.3cqw; letter-spacing: .08em; text-transform: uppercase; color: #555; }
+  .fsq-name { font-weight: 800; line-height: 1; margin-top: 2.5cqh; white-space: nowrap;
+              overflow: hidden; letter-spacing: -.01em; }
+  .fsq-spec { font-size: 3.1cqw; margin-top: 1.4cqh; color: #222; }
+  .fsq-route { flex: 1; min-height: 0; margin-top: 1cqh; }
+  .fsq-route svg { width: 100%; height: 100%; display: block; }
+  .fsq-facts { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 2.4cqw;
+               border-top: 2px solid #000; padding-top: 1.8cqh; }
+  .fsq-lab { font-size: 1.9cqw; letter-spacing: .08em; text-transform: uppercase; color: #555; }
+  .fsq-val { font-size: 2.7cqw; font-weight: 600; line-height: 1.15; margin-top: .6cqh; }
+</style>
+
+{% assign b = biggest %}
+{% if b %}
+{% assign name_len = b.name | size %}
+{% if name_len > 15 %}{% assign name_size = "6.2cqw" %}{% elsif name_len > 11 %}{% assign name_size = "7.6cqw" %}{% else %}{% assign name_size = "9cqw" %}{% endif %}
+
+{%- comment -%} Where the ship sits on the line: arriving = left half, in port = Fremantle, departing = right half {%- endcomment -%}
+{% assign ship_x = 500 %}
+{% if b.phase == "arriving" %}{% assign ship_x = 285 %}{% elsif b.phase == "departing" %}{% assign ship_x = 715 %}{% endif %}
+
+{%- comment -%} Silhouette width scales with real length (about 1.7 units per metre, clamped); it floats just above the line {%- endcomment -%}
+{% assign ship_w = b.length_m | default: 150 | times: 1.7 | at_least: 240 | at_most: 520 %}
+{% assign ship_h = ship_w | times: 0.3 %}
+{% assign ship_left = ship_w | divided_by: 2.0 | minus: ship_x | times: -1 %}
+{% assign ship_top = 184 | minus: ship_h %}
+
+{% case b.type %}
+  {% when "Tanker" %}{% assign glyph = "fs-tanker" %}
+  {% when "Bulk Carrier" %}{% assign glyph = "fs-bulk" %}
+  {% when "Container Ship" %}{% assign glyph = "fs-box" %}
+  {% when "Vehicles Carrier" %}{% assign glyph = "fs-roro" %}
+  {% when "Passenger Ship" %}{% assign glyph = "fs-pax" %}
+  {% when "General Cargo", "Heavy Lift" %}{% assign glyph = "fs-gc" %}
+  {% else %}{% assign glyph = "fs-gc" %}
+{% endcase %}
+
+<div class="fsq">
+  <div class="fsq-top">
+    <span>Biggest ship · Port of Fremantle</span>
+    <span>{{ updated }}</span>
+  </div>
+
+  <div class="fsq-name" style="font-size: {{ name_size }}">{{ b.name }}</div>
+  <div class="fsq-spec">
+    {{ b.type }} · {{ b.length_m }} × {{ b.beam_m }} m{% if b.draught_m %} · draught {{ b.draught_m }} m{% endif %}
+  </div>
+
+  <div class="fsq-route">
+    <svg viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <!-- Side-on silhouettes, bow to the right. Shared hull; hull black, superstructure dark grey. -->
+        <symbol id="fs-hull" viewBox="0 0 200 60"><path d="M2 40 H198 L186 56 H10 Z" fill="#000"/></symbol>
+        <symbol id="fs-tanker" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <path d="M10 40 V22 H18 V16 H34 V40 Z" fill="#333"/><rect x="14" y="9" width="7" height="8" fill="#000"/>
+          <rect x="34" y="36" width="150" height="4" fill="#555"/>
+          <rect x="108" y="28" width="3" height="10" fill="#333"/><rect x="100" y="28" width="19" height="3" fill="#333"/>
+          <path d="M184 40 V35 H196 L198 40 Z" fill="#333"/>
+        </symbol>
+        <symbol id="fs-bulk" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <path d="M10 40 V20 H16 V14 H32 V40 Z" fill="#333"/><rect x="14" y="7" width="7" height="8" fill="#000"/>
+          <rect x="42" y="33" width="20" height="7" rx="2" fill="#555"/><rect x="66" y="33" width="20" height="7" rx="2" fill="#555"/>
+          <rect x="90" y="33" width="20" height="7" rx="2" fill="#555"/><rect x="114" y="33" width="20" height="7" rx="2" fill="#555"/>
+          <rect x="138" y="33" width="20" height="7" rx="2" fill="#555"/><rect x="162" y="33" width="20" height="7" rx="2" fill="#555"/>
+          <path d="M63 33 V20 M87 33 V20 M111 33 V20 M135 33 V20" stroke="#000" stroke-width="2.5"/>
+          <path d="M63 21 L78 28 M87 21 L102 28 M111 21 L126 28 M135 21 L150 28" stroke="#000" stroke-width="1.6"/>
+        </symbol>
+        <symbol id="fs-box" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <rect x="44" y="6" width="12" height="34" fill="#333"/><rect x="42" y="6" width="16" height="4" fill="#000"/>
+          <rect x="12" y="26" width="28" height="14" fill="#666"/>
+          <rect x="60" y="18" width="124" height="22" fill="#666"/>
+          <path d="M70 18V40 M80 18V40 M90 18V40 M100 18V40 M110 18V40 M120 18V40 M130 18V40 M140 18V40 M150 18V40 M160 18V40 M170 18V40 M22 26V40 M31 26V40 M60 29H184 M12 33H40"
+                stroke="#fff" stroke-width="1"/>
+        </symbol>
+        <symbol id="fs-roro" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <path d="M8 40 V12 H176 Q194 12 196 30 L196 40 Z" fill="#333"/>
+          <rect x="16" y="6" width="9" height="7" fill="#000"/>
+          <path d="M150 17 H186" stroke="#fff" stroke-width="2"/>
+          <path d="M12 26 H190" stroke="#666" stroke-width="1.5"/>
+        </symbol>
+        <symbol id="fs-gc" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <path d="M10 40 V20 H16 V14 H30 V40 Z" fill="#333"/><rect x="14" y="7" width="7" height="8" fill="#000"/>
+          <rect x="40" y="34" width="144" height="6" fill="#555"/>
+          <path d="M70 34 V10 M120 34 V10 M160 34 V16" stroke="#000" stroke-width="3"/>
+          <path d="M70 12 L100 30 M120 12 L150 30 M160 18 L180 30" stroke="#000" stroke-width="1.8"/>
+        </symbol>
+        <symbol id="fs-pax" viewBox="0 0 200 60">
+          <use href="#fs-hull"/>
+          <rect x="16" y="28" width="168" height="12" fill="#333"/>
+          <rect x="28" y="19" width="146" height="9" fill="#444"/>
+          <rect x="44" y="11" width="112" height="8" fill="#555"/>
+          <path d="M66 11 V2 H80 L82 11 Z" fill="#000"/>
+          <path d="M22 33 H180 M34 23 H170" stroke="#fff" stroke-width="1.2" stroke-dasharray="3 2"/>
+        </symbol>
+      </defs>
+
+      <!-- route: solid = travelled, dashed = still to go -->
+      <line x1="70" y1="200" x2="{{ ship_x }}" y2="200" stroke="#000" stroke-width="5"/>
+      <line x1="{{ ship_x }}" y1="200" x2="930" y2="200" stroke="#000" stroke-width="5" stroke-dasharray="14 12"/>
+      <circle cx="70" cy="200" r="11" fill="#fff" stroke="#000" stroke-width="5"/>
+      <circle cx="500" cy="200" r="17" fill="#000"/>
+      <circle cx="930" cy="200" r="11" fill="#fff" stroke="#000" stroke-width="5"/>
+
+      <use href="#{{ glyph }}" x="{{ ship_left }}" y="{{ ship_top }}" width="{{ ship_w }}" height="{{ ship_h }}"/>
+
+      <text x="40" y="250" font-size="30" font-weight="700">{{ b.last_port | upcase }}</text>
+      <text x="40" y="282" font-size="21" fill="#555">FROM</text>
+      <text x="500" y="250" font-size="30" font-weight="800" text-anchor="middle">FREMANTLE</text>
+      <text x="500" y="282" font-size="21" fill="#555" text-anchor="middle">{{ b.berth }}</text>
+      <text x="960" y="250" font-size="30" font-weight="700" text-anchor="end">{{ b.next_port | upcase }}</text>
+      <text x="960" y="282" font-size="21" fill="#555" text-anchor="end">NEXT</text>
+    </svg>
+  </div>
+
+  <div class="fsq-facts">
+    <div><div class="fsq-lab">Cargo (best guess)</div><div class="fsq-val">{{ b.cargo_guess | default: "Unknown" }}</div></div>
+    <div><div class="fsq-lab">Now</div><div class="fsq-val">{{ b.status }}</div></div>
+    <div><div class="fsq-lab">Next move</div><div class="fsq-val">{{ b.next_move | default: "Not scheduled" }}</div></div>
+  </div>
+</div>
+{% else %}
+<div class="fsq"><div class="fsq-top"><span>Port of Fremantle</span><span>{{ updated }}</span></div>
+  <div class="fsq-name" style="font-size:6cqw">No sized ships yet</div></div>
+{% endif %}

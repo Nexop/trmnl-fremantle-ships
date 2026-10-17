@@ -1,0 +1,5 @@
+.env
+test_runs/
+latest.json
+__pycache__/
+.DS_Store

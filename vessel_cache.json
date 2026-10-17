@@ -1,0 +1,262 @@
+{
+ "219963000": {
+  "beam_m": 13,
+  "destination": "FREMANTLE",
+  "draught_m": 2.7,
+  "imo": 8876091,
+  "length_m": 67,
+  "name": "MODI R",
+  "type_code": 33,
+  "updated": "2026-10-17 21:00"
+ },
+ "255806176": {
+  "beam_m": 26,
+  "destination": "AU FRE",
+  "draught_m": 5.5,
+  "imo": 9785378,
+  "length_m": 150,
+  "name": "UHL FAME",
+  "type_code": 70,
+  "updated": "2026-10-17 21:00"
+ },
+ "255806344": {
+  "beam_m": 26,
+  "destination": "AU HFR",
+  "draught_m": 5.6,
+  "imo": 9892523,
+  "length_m": 150,
+  "name": "UHL FIGHTER",
+  "type_code": 70,
+  "updated": "2026-10-17 21:00"
+ },
+ "259105000": {
+  "beam_m": 32,
+  "destination": "AU KWI",
+  "draught_m": 8,
+  "imo": 9895197,
+  "length_m": 183,
+  "name": "TP ENDURANCE",
+  "type_code": 80,
+  "updated": "2026-10-17 20:46"
+ },
+ "352002245": {
+  "beam_m": 36,
+  "destination": "FREMANTLE",
+  "draught_m": 12.9,
+  "imo": 9928190,
+  "length_m": 200,
+  "name": "MAERSK BISCAYNE",
+  "type_code": 70,
+  "updated": "2026-10-17 21:00"
+ },
+ "352005418": {
+  "beam_m": 29,
+  "destination": "AU FRE",
+  "draught_m": 6.2,
+  "imo": 9539444,
+  "length_m": 180,
+  "name": "V LYRA",
+  "type_code": 70,
+  "updated": "2026-10-17 20:53"
+ },
+ "355615000": {
+  "beam_m": 30,
+  "destination": "AU FRE",
+  "draught_m": 8.9,
+  "imo": 9304502,
+  "length_m": 180,
+  "name": "POSITIVE STAR",
+  "type_code": 79,
+  "updated": "2026-10-17 21:00"
+ },
+ "477139600": {
+  "beam_m": 32,
+  "destination": "FREMANTLE,AU",
+  "draught_m": 7.6,
+  "imo": 9792876,
+  "length_m": 179,
+  "name": "GREAT BEAUTY",
+  "type_code": 70,
+  "updated": "2026-10-17 20:53"
+ },
+ "503000092": {
+  "beam_m": 16,
+  "destination": "B1",
+  "draught_m": 4.4,
+  "imo": 9676149,
+  "length_m": 83,
+  "name": "ADV BESANT",
+  "type_code": 90,
+  "updated": "2026-10-17 20:53"
+ },
+ "503000098": {
+  "beam_m": 16,
+  "destination": "BUNBURY",
+  "draught_m": 4.2,
+  "imo": 9707998,
+  "length_m": 96,
+  "name": "ADV STOKER",
+  "type_code": 51,
+  "updated": "2026-10-17 21:00"
+ },
+ "503000162": {
+  "beam_m": 19,
+  "destination": "ORAN ANCHORAGE",
+  "draught_m": 7.5,
+  "imo": 9869447,
+  "length_m": 115,
+  "name": "ABSOLUTE",
+  "type_code": 80,
+  "updated": "2026-10-17 21:00"
+ },
+ "503003840": {
+  "beam_m": 6,
+  "destination": "FREO",
+  "draught_m": 2.2,
+  "imo": null,
+  "length_m": 12,
+  "name": "JETWAVE ORION",
+  "type_code": 52,
+  "updated": "2026-10-17 20:46"
+ },
+ "503042000": {
+  "beam_m": 8,
+  "destination": "FREMANTLE",
+  "draught_m": 3.5,
+  "imo": 8510855,
+  "length_m": 55,
+  "name": "LEEUWIN 2",
+  "type_code": 36,
+  "updated": "2026-10-17 21:00"
+ },
+ "503170340": {
+  "beam_m": 5,
+  "destination": "",
+  "draught_m": null,
+  "imo": null,
+  "length_m": 18,
+  "name": "KWILENA",
+  "type_code": 50,
+  "updated": "2026-10-17 20:46"
+ },
+ "503182360": {
+  "beam_m": 11,
+  "destination": "HMAS_STIRLING",
+  "draught_m": null,
+  "imo": 1045057,
+  "length_m": 21,
+  "name": "COTTESLOE",
+  "type_code": 52,
+  "updated": "2026-10-17 20:46"
+ },
+ "503187620": {
+  "beam_m": 8,
+  "destination": "FREMANTLE",
+  "draught_m": 1.7,
+  "imo": 1064613,
+  "length_m": 42,
+  "name": "GWARDAR",
+  "type_code": 10,
+  "updated": "2026-10-17 20:46"
+ },
+ "503195390": {
+  "beam_m": 11,
+  "destination": "",
+  "draught_m": null,
+  "imo": 4776748,
+  "length_m": 59,
+  "name": "CAPE DENISON",
+  "type_code": 35,
+  "updated": "2026-10-17 21:00"
+ },
+ "503250800": {
+  "beam_m": 9,
+  "destination": "A",
+  "draught_m": 2.5,
+  "imo": 1009209,
+  "length_m": 40,
+  "name": "PLATINUM",
+  "type_code": 37,
+  "updated": "2026-10-17 21:00"
+ },
+ "503583000": {
+  "beam_m": 11,
+  "destination": "",
+  "draught_m": 5.2,
+  "imo": 9431070,
+  "length_m": 30,
+  "name": "SVITZER EAGLE",
+  "type_code": 90,
+  "updated": "2026-10-17 20:53"
+ },
+ "503588000": {
+  "beam_m": 11,
+  "destination": "FREMANTLE",
+  "draught_m": 5,
+  "imo": 9431082,
+  "length_m": 30,
+  "name": "SVITZER FALCON",
+  "type_code": 52,
+  "updated": "2026-10-17 20:46"
+ },
+ "503632000": {
+  "beam_m": 12,
+  "destination": "FREMANTLE",
+  "draught_m": 5.2,
+  "imo": 9600229,
+  "length_m": 32,
+  "name": "SVITZER ROWAN",
+  "type_code": 52,
+  "updated": "2026-10-17 21:00"
+ },
+ "503772000": {
+  "beam_m": 13,
+  "destination": "FREMANTLE",
+  "draught_m": 5.3,
+  "imo": 9581629,
+  "length_m": 33,
+  "name": "SVITZER NAIAD",
+  "type_code": 52,
+  "updated": "2026-10-17 21:00"
+ },
+ "538007767": {
+  "beam_m": 32,
+  "destination": "AU FRE",
+  "draught_m": 8.4,
+  "imo": 9483786,
+  "length_m": 183,
+  "name": "ARABIAN SEA",
+  "type_code": 70,
+  "updated": "2026-10-17 20:46"
+ },
+ "538009013": {
+  "beam_m": 35,
+  "destination": "AUKWI",
+  "draught_m": 13.7,
+  "imo": 9885910,
+  "length_m": 229,
+  "name": "BALZANI",
+  "type_code": 80,
+  "updated": "2026-10-17 20:53"
+ },
+ "566645000": {
+  "beam_m": 32,
+  "destination": "AUKWI",
+  "draught_m": 7,
+  "imo": 9726437,
+  "length_m": 199,
+  "name": "SAVITA NAREE",
+  "type_code": 70,
+  "updated": "2026-10-17 21:00"
+ },
+ "567608000": {
+  "beam_m": 30,
+  "destination": "AU FRE",
+  "draught_m": 6.7,
+  "imo": 9649885,
+  "length_m": 180,
+  "name": "PAVIDA NAREE",
+  "type_code": 70,
+  "updated": "2026-10-17 21:00"
+ }
+}
