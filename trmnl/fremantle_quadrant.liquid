@@ -4,19 +4,20 @@
 <style>
   .fsq { container-type: size; width: 100%; height: 100%; box-sizing: border-box;
          padding: 2.6cqh 3.2cqw; display: flex; flex-direction: column; color: #000;
-         font-family: inherit; }
+         font-family: "Inter", "Helvetica Neue", Helvetica, Arial, "Liberation Sans", "DejaVu Sans", sans-serif;
+         -webkit-font-smoothing: none; }
   .fsq * { box-sizing: border-box; }
   .fsq-top { display: flex; justify-content: space-between; align-items: baseline;
-             font-size: 2.3cqw; letter-spacing: .08em; text-transform: uppercase; color: #555; }
+             font-size: 2.6cqw; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #222; }
   .fsq-name { font-weight: 800; line-height: 1; margin-top: 2.5cqh; white-space: nowrap;
               overflow: hidden; letter-spacing: -.01em; }
-  .fsq-spec { font-size: 3.1cqw; margin-top: 1.4cqh; color: #222; }
+  .fsq-spec { font-size: 3.5cqw; font-weight: 500; margin-top: 1.4cqh; color: #000; }
   .fsq-route { flex: 1; min-height: 0; margin-top: 1cqh; }
   .fsq-route svg { width: 100%; height: 100%; display: block; }
   .fsq-facts { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 2.4cqw;
                border-top: 2px solid #000; padding-top: 1.8cqh; }
-  .fsq-lab { font-size: 1.9cqw; letter-spacing: .08em; text-transform: uppercase; color: #555; }
-  .fsq-val { font-size: 2.7cqw; font-weight: 600; line-height: 1.15; margin-top: .6cqh; }
+  .fsq-lab { font-size: 2.3cqw; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #222; }
+  .fsq-val { font-size: 3.1cqw; font-weight: 700; line-height: 1.15; margin-top: .6cqh; }
 </style>
 
 {% assign b = biggest %}
@@ -117,12 +118,12 @@
 
       <use href="#{{ glyph }}" x="{{ ship_left }}" y="{{ ship_top }}" width="{{ ship_w }}" height="{{ ship_h }}"/>
 
-      <text x="40" y="250" font-size="30" font-weight="700">{{ b.last_port | upcase }}</text>
-      <text x="40" y="282" font-size="21" fill="#555">FROM</text>
-      <text x="500" y="250" font-size="30" font-weight="800" text-anchor="middle">FREMANTLE</text>
-      <text x="500" y="282" font-size="21" fill="#555" text-anchor="middle">{{ b.berth }}</text>
-      <text x="960" y="250" font-size="30" font-weight="700" text-anchor="end">{{ b.next_port | upcase }}</text>
-      <text x="960" y="282" font-size="21" fill="#555" text-anchor="end">NEXT</text>
+      <text x="40" y="252" font-size="36" font-weight="800">{{ b.last_port | upcase }}</text>
+      <text x="40" y="288" font-size="25" font-weight="600" fill="#222">FROM</text>
+      <text x="500" y="252" font-size="36" font-weight="800" text-anchor="middle">FREMANTLE</text>
+      <text x="500" y="288" font-size="25" font-weight="600" fill="#222" text-anchor="middle">{{ b.berth }}</text>
+      <text x="960" y="252" font-size="36" font-weight="800" text-anchor="end">{{ b.next_port | upcase }}</text>
+      <text x="960" y="288" font-size="25" font-weight="600" fill="#222" text-anchor="end">NEXT</text>
     </svg>
   </div>
 

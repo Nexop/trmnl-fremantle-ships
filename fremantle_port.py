@@ -48,6 +48,15 @@ def load_env() -> None:
                 os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
+def prune_logs(days: float = 2) -> None:
+    """Delete this script's own raw AIS logs older than `days` (they add up when run every 15 min)."""
+    import time
+    cutoff = time.time() - days * 86400
+    for f in (HERE / "test_runs").glob("raw_fremantle_port_*.jsonl"):
+        if f.stat().st_mtime < cutoff:
+            f.unlink(missing_ok=True)
+
+
 def push_to_trmnl(payload: dict) -> None:
     url = os.environ.get("TRMNL_WEBHOOK_URL", "").strip()
     if not url:
@@ -229,6 +238,7 @@ def main() -> None:
         ais.BBOX = ais.BOXES["fremantle"]
         out_dir = HERE / "test_runs"
         out_dir.mkdir(exist_ok=True)
+        prune_logs()
         stamp_utc = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M")
         raw_path = out_dir / f"raw_fremantle_port_{stamp_utc}.jsonl"
         print(f"Listening to AIS over Fremantle for {minutes:g} min...")
