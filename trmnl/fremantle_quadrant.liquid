@@ -1,5 +1,7 @@
-<!-- Fremantle: biggest ship in port — TRMNL quadrant markup.
-     Data: latest.json from fremantle_port.py (merge variables: biggest, others, ships_in_port, unsized, updated).
+<!-- Fremantle Ships — TRMNL markup (quadrant; also works in Full/Half).
+     Data: latest.json from fremantle_port.py. Merge variables:
+       mode ("arrival" = latest arrival, "biggest" = fallback), ship (the featured ship),
+       biggest (biggest ship in port, if different), ships_in_port, unsized, updated.
      Sizes use cq units, so the same markup scales to any slot or device. -->
 <style>
   .fsq { container-type: size; width: 100%; height: 100%; box-sizing: border-box;
@@ -18,9 +20,11 @@
                border-top: 2px solid #000; padding-top: 1.8cqh; }
   .fsq-lab { font-size: 2.3cqw; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #222; }
   .fsq-val { font-size: 3.1cqw; font-weight: 700; line-height: 1.15; margin-top: .6cqh; }
+  .fsq-when { font-size: 3.5cqw; font-weight: 700; margin-top: .8cqh; }
+  .fsq-foot { font-size: 2.4cqw; font-weight: 600; margin-top: 1.6cqh; color: #222; }
 </style>
 
-{% assign b = biggest %}
+{% assign b = ship %}
 {% if b %}
 {% assign name_len = b.name | size %}
 {% if name_len > 15 %}{% assign name_size = "6.2cqw" %}{% elsif name_len > 11 %}{% assign name_size = "7.6cqw" %}{% else %}{% assign name_size = "9cqw" %}{% endif %}
@@ -30,7 +34,7 @@
 {% if b.phase == "arriving" %}{% assign ship_x = 285 %}{% elsif b.phase == "departing" %}{% assign ship_x = 715 %}{% endif %}
 
 {%- comment -%} Silhouette width scales with real length (about 1.7 units per metre, clamped); it floats just above the line {%- endcomment -%}
-{% assign ship_w = b.length_m | default: 150 | times: 1.7 | at_least: 240 | at_most: 520 %}
+{% assign ship_w = b.length_m | default: 180 | times: 1.7 | at_least: 240 | at_most: 520 %}
 {% assign ship_h = ship_w | times: 0.3 %}
 {% assign ship_left = ship_w | divided_by: 2.0 | minus: ship_x | times: -1 %}
 {% assign ship_top = 184 | minus: ship_h %}
@@ -47,14 +51,15 @@
 
 <div class="fsq">
   <div class="fsq-top">
-    <span>Biggest ship · Port of Fremantle</span>
+    <span>{% if mode == "arrival" %}Latest arrival{% else %}Biggest ship{% endif %} · Port of Fremantle</span>
     <span>{{ updated }}</span>
   </div>
 
   <div class="fsq-name" style="font-size: {{ name_size }}">{{ b.name }}</div>
   <div class="fsq-spec">
-    {{ b.type }} · {{ b.length_m }} × {{ b.beam_m }} m{% if b.draught_m %} · draught {{ b.draught_m }} m{% endif %}
+    {{ b.type }} · {% if b.length_m %}{{ b.length_m }} × {{ b.beam_m }} m{% if b.draught_m %} · draught {{ b.draught_m }} m{% endif %}{% else %}size pending{% endif %}
   </div>
+  {% if mode == "arrival" and b.arrived_at != "" %}<div class="fsq-when">Arrived {{ b.arrived_at }} · {{ b.arrived_ago }}</div>{% endif %}
 
   <div class="fsq-route">
     <svg viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
@@ -132,8 +137,9 @@
     <div><div class="fsq-lab">Now</div><div class="fsq-val">{{ b.status }}</div></div>
     <div><div class="fsq-lab">Next move</div><div class="fsq-val">{{ b.next_move | default: "Not scheduled" }}</div></div>
   </div>
+  {% if biggest %}<div class="fsq-foot">Biggest in port: {{ biggest.name }}{% if biggest.length_m %} · {{ biggest.length_m }} m{% endif %}</div>{% endif %}
 </div>
 {% else %}
 <div class="fsq"><div class="fsq-top"><span>Port of Fremantle</span><span>{{ updated }}</span></div>
-  <div class="fsq-name" style="font-size:6cqw">No sized ships yet</div></div>
+  <div class="fsq-name" style="font-size:6cqw">No ships to show yet</div></div>
 {% endif %}
